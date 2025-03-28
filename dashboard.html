@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(255, 204, 0, 0.3);
+        }
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .movie {
+            background: #444;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            width: 200px;
+            box-shadow: 0 4px 8px rgba(255, 204, 0, 0.2);
+        }
+        .movie img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px;
+            background: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, <span id="username">User</span>!</h1>
+        <h2>Your Favorite Movies</h2>
+        <div class="movie-list" id="favoriteMovies"></div>
+        <h2>Recommended for You</h2>
+        <div class="movie-list" id="recommendedMovies"></div>
+        <button onclick="logout()">Logout</button>
+    </div>
+    
+    <script>
+        document.getElementById("username").innerText = localStorage.getItem("username") || "User";
+        
+        const favoriteMovies = [
+            { title: "Inception", image: "https://via.placeholder.com/200" },
+            { title: "Interstellar", image: "https://via.placeholder.com/200" }
+        ];
+        
+        const recommendedMovies = [
+            { title: "The Matrix", image: "https://via.placeholder.com/200" },
+            { title: "The Dark Knight", image: "https://via.placeholder.com/200" }
+        ];
+        
+        function displayMovies(movies, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = movies.map(movie => `
+                <div class="movie">
+                    <img src="${movie.image}" alt="${movie.title}">
+                    <h3>${movie.title}</h3>
+                </div>
+            `).join('');
+        }
+        
+        function logout() {
+            localStorage.removeItem("username");
+            window.location.href = "login.html";
+        }
+        
+        displayMovies(favoriteMovies, "favoriteMovies");
+        displayMovies(recommendedMovies, "recommendedMovies");
+    </script>
+</body>
+</html>
